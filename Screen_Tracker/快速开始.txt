@@ -1,0 +1,430 @@
+=== 屏幕使用时长统计工具 - 跨平台快速开始 ===
+
+当前目录：/run/media/tian/软件/VS_Code/Code_Set/Screen_Tracker
+
+【第一步：进入正确目录】
+在终端中执行：
+cd "/run/media/tian/软件/VS_Code/Code_Set/Screen_Tracker"
+
+【第二步：安装系统工具（Linux）】
+# Arch Linux
+sudo pacman -S xdotool xprintidle wmctrl
+
+# Ubuntu/Debian
+sudo apt install xdotool xprintidle wmctrl
+
+# GNOME桌面环境（可选）
+sudo pacman -S libappindicator-gtk3  # Arch
+sudo apt install gir1.2-appindicator3-0.1  # Ubuntu
+
+【第三步：安装Python依赖】
+
+# Arch Linux 用户（推荐使用系统包管理器）
+sudo pacman -S python-psutil python-pillow python-matplotlib python-pystray
+
+# Ubuntu/Debian 用户
+sudo apt install python3-psutil python3-pil python3-matplotlib python3-pystray
+
+# 或者使用 pip（如果系统包管理器没有这些包）
+# 注意：Arch Linux 默认启用了 PEP 668 保护，建议使用虚拟环境
+python3 -m venv venv
+source venv/bin/activate
+pip install psutil pillow matplotlib pystray
+
+# 或者使用 pipx（推荐用于应用程序）
+pipx install psutil pillow matplotlib pystray
+
+# 也可以使用 --break-system-packages（不推荐，可能破坏系统）
+pip3 install --break-system-packages psutil pillow matplotlib pystray
+
+【第四步：运行程序（任选一种方式）】
+
+方式1：使用启动脚本（推荐）
+chmod +x 启动跨平台版本.sh
+./启动跨平台版本.sh
+
+方式2：直接运行Python程序
+python3 ScreenTracker_cross_platform.pyw
+
+方式3：后台运行
+python3 ScreenTracker_cross_platform.pyw &
+
+【程序说明】
+1. 如果系统托盘支持，图标会出现在右下角
+2. 右键点击托盘图标可以查看菜单和报表
+3. 如果托盘不支持，程序会在后台运行
+4. 按 Ctrl+C 停止程序
+
+【查看数据】
+数据保存在：screen_data.db
+查看数据：python3 screen_data_query.py
+
+【Windows系统】
+直接双击：启动跨平台版本.bat
+
+【设置开机自启】
+
+Linux系统：
+1. 运行程序后右键点击系统托盘图标
+2. 选择 "✅ 开机自启"
+3. 或者运行：./设置Linux开机自启.sh
+
+Windows系统：
+1. 运行程序后右键点击系统托盘图标
+2. 选择 "✅ 开机自启"
+
+=== 常见问题 ===
+
+Q: 提示"python: can't open file"
+A: 确保在正确目录：/run/media/tian/软件/VS_Code/Code_Set/Screen_Tracker
+
+Q: 系统托盘不显示
+A: 程序会在后台运行，数据正常记录。检查桌面环境兼容性。
+
+Q: 如何停止后台程序
+A: ps aux | grep ScreenTracker
+   kill [进程ID]
+   或者：pkill -f ScreenTracker
+
+Q: Linux系统托盘不显示
+A: 检查桌面环境：
+   - GNOME：安装 libappindicator-gtk3
+   - KDE Plasma：通常支持良好
+   - XFCE：需要通知守护进程
+
+Q: 程序无法检测活动窗口
+A: 检查系统工具：
+   - xdotool：用于活动窗口检测
+   - xprintidle：用于空闲时间检测
+   - wmctrl：用于窗口管理
+
+=== 测试命令 ===
+# 测试Python环境
+python3 --version
+
+# 测试依赖
+python3 -c "import psutil; print('✓ psutil OK')"
+python3 -c "import pystray; print('✓ pystray OK')"
+python3 -c "import matplotlib; print('✓ matplotlib OK')"
+python3 -c "import PIL; print('✓ PIL (Pillow) OK')"
+python3 -c "from PIL import Image, ImageDraw; print('✓ PIL Image, ImageDraw OK')"
+
+# 快速测试运行（5秒）
+timeout 5s python3 ScreenTracker_cross_platform.pyw
+
+# 检查系统工具
+which xdotool && echo "✓ xdotool OK"
+which xprintidle && echo "✓ xprintidle OK"
+which wmctrl && echo "✓ wmctrl OK"
+
+# Arch Linux PEP 668 问题解决
+# 如果遇到 "externally-managed-environment" 错误：
+# 1. 使用系统包管理器安装（推荐）
+sudo pacman -S python-psutil python-pillow python-matplotlib python-pystray
+
+# 2. 或者使用虚拟环境
+python3 -m venv venv
+source venv/bin/activate
+pip install psutil pillow matplotlib pystray
+
+# 3. 或者使用 pipx（推荐用于应用程序）
+pipx install psutil pillow matplotlib pystray
+
+# 4. 或者强制安装（不推荐，可能破坏系统）
+pip3 install --break-system-packages psutil pillow matplotlib pystray
+
+=== Linux 系统详细使用指南 ===
+
+【Linux 系统特定配置】
+
+1. 桌面环境兼容性
+   - GNOME: 需要安装 libappindicator-gtk3
+     sudo pacman -S libappindicator-gtk3  # Arch
+     sudo apt install gir1.2-appindicator3-0.1  # Ubuntu
+   - KDE Plasma: 通常支持良好，无需额外配置
+   - XFCE: 需要通知守护进程
+     sudo pacman -S xfce4-notifyd  # Arch
+     sudo apt install xfce4-notifyd  # Ubuntu
+
+2. 系统工具检查
+   # 检查所有必要的工具
+   which xdotool && echo "✓ xdotool 已安装"
+   which xprintidle && echo "✓ xprintidle 已安装"
+   which wmctrl && echo "✓ wmctrl 已安装"
+   
+   # 如果未安装，使用以下命令安装
+   sudo pacman -S xdotool xprintidle wmctrl  # Arch Linux
+   sudo apt install xdotool xprintidle wmctrl  # Ubuntu/Debian
+
+3. Python 环境检查
+   # 确保 Python3 可用
+   python3 --version
+   which python3
+   
+   # 检查必要的 Python 包
+   python3 -c "import psutil, pystray, matplotlib, pillow; print('✓ 所有依赖已安装')"
+   python3 -c "from PIL import Image, ImageDraw; print('✓ PIL Image, ImageDraw OK')"
+
+【Linux 系统运行方式】
+
+方式1：使用启动脚本（推荐）
+   chmod +x 启动跨平台版本.sh
+   ./启动跨平台版本.sh
+
+方式2：直接运行
+   python3 ScreenTracker_cross_platform.pyw
+
+方式3：后台运行
+   python3 ScreenTracker_cross_platform.pyw &
+
+方式4：作为服务运行
+   # 创建 systemd 服务（可选）
+   sudo nano /etc/systemd/system/screen-tracker.service
+   
+   # 添加以下内容：
+   [Unit]
+   Description=Screen Usage Tracker
+   After=graphical.target network.target
+   Wants=graphical.target
+   
+   [Service]
+   Type=simple
+   User=$USER
+   Environment=DISPLAY=:0
+   Environment=XAUTHORITY=/home/$USER/.Xauthority
+   WorkingDirectory=/run/media/tian/软件/VS_Code/Code_Set/Screen_Tracker
+   ExecStart=/usr/bin/python3 /run/media/tian/软件/VS_Code/Code_Set/Screen_Tracker/ScreenTracker_cross_platform.pyw
+   Restart=on-failure
+   RestartSec=10
+   
+   [Install]
+   WantedBy=graphical.target
+   
+   # 启用服务
+   sudo systemctl daemon-reload
+   sudo systemctl enable screen-tracker.service
+   sudo systemctl start screen-tracker.service
+
+【Linux 系统托盘问题解决】
+
+如果系统托盘不显示：
+
+1. 检查桌面环境
+   echo $XDG_CURRENT_DESKTOP
+   
+2. GNOME 用户（重点说明）
+   # 安装必要的库
+   sudo pacman -S libappindicator-gtk3  # Arch Linux
+   sudo apt install gir1.2-appindicator3-0.1  # Ubuntu/Debian
+   
+   # 启用系统托盘扩展
+   # GNOME 40+ 默认不显示系统托盘，需要安装扩展
+   sudo pacman -S gnome-shell-extensions  # Arch
+   sudo apt install gnome-shell-extensions  # Ubuntu
+   
+   # 启用 AppIndicator 支持
+   gnome-extensions enable appindicatorsupport@rgcjonas.gmail.com
+   
+   # 或者使用 GNOME Tweaks 工具
+   sudo pacman -S gnome-tweaks  # Arch
+   sudo apt install gnome-tweaks  # Ubuntu
+   # 打开 Tweaks -> Extensions -> 启用 "AppIndicator and KStatusNotifierItem Support"
+   
+   # 如果使用 GNOME Shell 40+
+   # 可能需要安装 TopIcons 或 TopIcons Plus 扩展
+   # 从 https://extensions.gnome.org/ 安装
+   
+   # 重启 GNOME Shell
+   # 按 Alt+F2，输入 'r'，然后按 Enter
+
+3. KDE Plasma 用户
+   # 通常无需额外配置，如果仍有问题：
+   killall plasmashell && kstart5 plasmashell
+
+4. XFCE 用户
+   # 确保有通知守护进程
+   sudo pacman -S xfce4-notifyd  # Arch
+   sudo apt install xfce4-notifyd  # Ubuntu
+   # 重启面板
+   xfce4-panel --restart
+
+5. 其他桌面环境
+   # 程序会在后台运行，不影响数据记录
+   # 查看进程：ps aux | grep ScreenTracker
+   # 停止进程：pkill -f ScreenTracker
+
+【Linux 开机自启设置】
+
+方法1：通过程序菜单（推荐）
+   1. 运行程序
+      # 使用启动脚本运行
+      chmod +x 启动跨平台版本.sh
+      ./启动跨平台版本.sh
+      
+      # 或者直接运行
+      python3 ScreenTracker_cross_platform.pyw
+   
+   2. 查找系统托盘图标
+      # 程序启动后，应该在屏幕右下角的系统托盘区域看到一个图标
+      # 图标可能是：
+      # - 一个蓝色背景上的白色方块（默认图标）
+      # - 或者是程序目录下的 icon.png 文件（如果有）
+      # 如果看不到图标，请参考前面的"Linux 系统托盘问题解决"部分
+   
+   3. 右键点击系统托盘图标
+      # 将鼠标指针移动到系统托盘图标上
+      # 右键点击图标，会弹出一个菜单
+   
+   4. 选择 "✅ 开机自启"
+      # 在弹出的菜单中，找到并点击 "✅ 开机自启" 选项
+      # 程序会显示一个提示框，确认开机自启设置成功
+   
+   5. 验证设置
+      # 重启系统后，程序应该会自动启动
+      # 检查系统托盘是否有图标
+      # 或者检查进程：ps aux | grep ScreenTracker
+   
+   注意事项：
+   - 如果系统托盘不显示，程序会在后台运行，不影响数据记录
+   - 开机自启功能依赖于桌面环境的支持
+   - GNOME用户需要确保已启用 AppIndicator 扩展
+
+方法2：使用脚本
+   ./设置Linux开机自启.sh
+
+方法3：手动创建 .desktop 文件
+   mkdir -p ~/.config/autostart
+   cat > ~/.config/autostart/screen_tracker.desktop << EOF
+   [Desktop Entry]
+   Type=Application
+   Name=屏幕统计工具
+   Comment=跨平台屏幕使用时长统计
+   Exec=python3 "/run/media/tian/软件/VS_Code/Code_Set/Screen_Tracker/ScreenTracker_cross_platform.pyw"
+   Icon=/run/media/tian/软件/VS_Code/Code_Set/Screen_Tracker/icon.png
+   Terminal=false
+   StartupNotify=false
+   X-GNOME-Autostart-enabled=true
+   EOF
+   chmod +x ~/.config/autostart/screen_tracker.desktop
+
+方法4：systemd 用户服务
+   mkdir -p ~/.config/systemd/user
+   cat > ~/.config/systemd/user/screen-tracker.service << EOF
+   [Unit]
+   Description=Screen Usage Tracker
+   After=graphical-session.target
+   
+   [Service]
+   Type=simple
+   Environment=DISPLAY=:0
+   WorkingDirectory=/run/media/tian/软件/VS_Code/Code_Set/Screen_Tracker
+   ExecStart=/usr/bin/python3 /run/media/tian/软件/VS_Code/Code_Set/Screen_Tracker/ScreenTracker_cross_platform.pyw
+   Restart=on-failure
+   RestartSec=10
+   
+   [Install]
+   WantedBy=default.target
+   EOF
+   
+   # 启用用户服务
+   systemctl --user daemon-reload
+   systemctl --user enable screen-tracker.service
+   systemctl --user start screen-tracker.service
+
+【Linux 故障排除】
+
+1. 程序无法启动
+   # 检查 Python 版本
+   python3 --version
+   
+   # 检查依赖
+   python3 -c "import psutil; print('psutil OK')"
+   python3 -c "import pystray; print('pystray OK')"
+   
+   # 检查权限
+   ls -la ScreenTracker_cross_platform.pyw
+   chmod +x ScreenTracker_cross_platform.pyw
+
+2. 无法检测活动窗口
+   # 检查 xdotool
+   xdotool getactivewindow
+   xdotool getwindowpid $(xdotool getactivewindow)
+   
+   # 检查权限
+   # 可能需要 X11 访问权限
+   export DISPLAY=:0
+
+3. 系统托盘不显示
+   # 检查桌面环境支持
+   echo $XDG_CURRENT_DESKTOP
+   
+   # 尝试安装系统托盘库
+   sudo pacman -S libappindicator-gtk3  # Arch
+   sudo apt install gir1.2-appindicator3-0.1  # Ubuntu
+
+4. 开机自启不生效
+   # 检查 .desktop 文件
+   ls -la ~/.config/autostart/
+   cat ~/.config/autostart/screen_tracker.desktop
+   
+   # 检查路径是否正确
+   which python3
+   ls -la "/run/media/tian/软件/VS_Code/Code_Set/Screen_Tracker/ScreenTracker_cross_platform.pyw"
+
+【Linux 数据管理】
+
+1. 数据库位置
+   # 数据库文件在程序目录下
+   ls -la screen_data.db
+   
+   # 备份数据
+   cp screen_data.db screen_data_backup.db
+
+2. 查看数据
+   # 使用查询脚本
+   python3 screen_data_query.py
+   
+   # 直接查看数据库
+   sqlite3 screen_data.db "SELECT * FROM usage_log ORDER BY date DESC LIMIT 10;"
+
+3. 数据迁移
+   # 复制数据库文件到其他系统
+   cp screen_data.db /path/to/other/system/
+   
+   # 确保文件权限
+   chmod 644 screen_data.db
+
+【Linux 性能优化】
+
+1. 减少资源占用
+   # 修改检测间隔（编辑程序文件）
+   INTERVAL = 10  # 从5秒改为10秒
+   
+   # 修改空闲阈值
+   IDLE_THRESHOLD = 1200  # 从10分钟改为20分钟
+
+2. 后台运行优化
+   # 使用 nohup 后台运行
+   nohup python3 ScreenTracker_cross_platform.pyw > /dev/null 2>&1 &
+   
+   # 使用 screen 或 tmux
+   screen -S screen_tracker
+   python3 ScreenTracker_cross_platform.pyw
+   # 按 Ctrl+A, 然后按 D 退出 screen
+
+【Linux 安全注意事项】
+
+1. 权限管理
+   # 程序需要的最小权限
+   - 读写数据库文件
+   - 访问 X11 信息（用于检测活动窗口）
+   - 创建系统托盘图标
+
+2. 防火墙设置
+   # 程序不连接网络，无需开放端口
+   # 如果使用 systemd 服务，确保用户服务权限正确
+
+3. 数据隐私
+   # 所有数据存储在本地
+   # 数据库文件可以加密（需要额外配置）
+   # 定期备份重要数据

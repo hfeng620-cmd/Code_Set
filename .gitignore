@@ -1,0 +1,39 @@
+# --- OS / Editor ---
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# --- Clang / C-C++ tools ---
+.clangd
+compile_commands.json
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# --- Build artifacts ---
+build/
+dist/
+out/
+output/
+*.o
+*.obj
+*.exe
+*.dll
+*.so
+*.dylib
+
+# --- Logs / temp ---
+*.log
+*.tmp
+
+# --- Node (if any) ---
+node_modules/

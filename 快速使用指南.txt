@@ -1,0 +1,240 @@
+# DeepSeek Token使用量记录器 - 快速使用指南
+
+## 第一步：准备工作
+
+1. **确保NocoDB运行**：打开浏览器访问 http://localhost:8080，确认NocoDB正常运行
+
+2. **获取API令牌**：
+   - 登录NocoDB
+   - 进入设置 → API令牌
+   - 生成新令牌并复制
+
+3. **创建DeepSeek_Usage表**：
+   - 在NocoDB中新建表，命名为 "DeepSeek_Usage"
+   - 添加以下列：
+     * Date (日期类型，Date)
+     * Model (单行文本，SingleLineText，填 v3 或 r1)
+     * Tokens (数字类型，Number，整数)
+     * Cost_RMB (小数类型，Decimal，用于记账)
+     * task_description (长文本，LongText，可选)
+
+## 第二步：配置API令牌
+
+选择以下任一方法配置API令牌：
+
+### 方法A：环境变量（推荐）
+```cmd
+set NOCODB_API_TOKEN=你的API令牌
+```
+
+### 方法B：配置文件
+创建文件 `D:\VS_Code\Code_Set\nocodb_config.json`：
+```json
+{
+  "api_token": "你的API令牌",
+  "nocodb_url": "http://localhost:8080"
+}
+```
+
+### 方法C：命令行参数
+每次使用时添加 `--token 你的API令牌`
+
+## 第三步：开始使用
+
+### 方式1：使用批处理文件（最简单）
+```cmd
+cd D:\VS_Code\Code_Set
+log_deepseek_usage.bat 1500 "代码审查任务"
+```
+
+### 方式2：直接使用Python脚本
+```cmd
+D:\AAA_Learning_Resource\ScreenTracker\venv\Scripts\python.exe deepseek_usage_logger.py --tokens 1500 --task "代码审查"
+```
+
+### 方式3：指定模型
+```cmd
+D:\AAA_Learning_Resource\ScreenTracker\venv\Scripts\python.exe deepseek_usage_logger.py --tokens 2000 --model "DeepSeek-R1" --task "架构设计"
+```
+
+## 第四步：测试连接
+
+```cmd
+D:\AAA_Learning_Resource\ScreenTracker\venv\Scripts\python.exe deepseek_usage_logger.py --test --token 你的API令牌
+```
+
+如果显示 "✅ NocoDB连接成功!" 表示配置正确。
+
+## 第五步：查看记录和统计
+
+```cmd
+# 查看最近10条记录及汇总统计（默认）
+D:\AAA_Learning_Resource\ScreenTracker\venv\Scripts\python.exe deepseek_usage_logger.py --recent 10 --token 你的API令牌
+
+# 查看最近5条记录
+D:\AAA_Learning_Resource\ScreenTracker\venv\Scripts\python.exe deepseek_usage_logger.py --recent 5 --token 你的API令牌
+
+# 查看所有记录（设置一个较大的数字）
+D:\AAA_Learning_Resource\ScreenTracker\venv\Scripts\python.exe deepseek_usage_logger.py --recent 100 --token 你的API令牌
+```
+
+### 汇总统计功能
+使用 `--recent` 参数时，脚本会自动显示：
+1. **按日期统计**：每天v3和r1的使用量和成本
+2. **模型分类统计**：v3和r1各自的总使用量和总成本
+3. **总体统计**：总Token使用量、总成本、平均每token成本
+
+### 统计示例输出：
+```
+📊 使用量汇总统计:
+
+📅 按日期统计:
+------------------------------------------------------------
+  2025-01-29:
+    v3: 1500 tokens, ¥0.0108
+    r1: 2000 tokens, ¥0.0288
+    总计: 3500 tokens, ¥0.0396
+
+📈 总体统计:
+------------------------------------------------------------
+  总记录数: 2
+
+  v3模型:
+    Token使用量: 1500
+    总成本: ¥0.0108
+    平均每token成本: ¥0.00000720
+
+  r1模型:
+    Token使用量: 2000
+    总成本: ¥0.0288
+    平均每token成本: ¥0.00001440
+
+  📋 总计:
+    Token使用量: 3500
+    总成本: ¥0.0396
+    平均每token成本: ¥0.00001131
+```
+
+## 实际使用示例
+
+假设你刚刚完成了一个任务，消耗了大约1200个Token：
+
+```cmd
+# 方法1：批处理文件
+log_deepseek_usage.bat 1200 "修复视频播放器bug"
+
+# 方法2：Python脚本
+D:\AAA_Learning_Resource\ScreenTracker\venv\Scripts\python.exe deepseek_usage_logger.py --tokens 1200 --task "修复视频播放器bug"
+
+# 方法3：带模型指定
+D:\AAA_Learning_Resource\ScreenTracker\venv\Scripts\python.exe deepseek_usage_logger.py --tokens 1800 --model "DeepSeek-R1" --task "复杂逻辑分析"
+```
+
+## 故障排除
+
+### 问题1：连接失败
+```
+❌ NocoDB连接失败: 401 - {"error":"ERR_AUTHENTICATION_REQUIRED"}
+```
+**解决**：API令牌错误或过期，重新生成令牌
+
+### 问题2：表不存在
+```
+⚠️ 端点失败: 404 - Table not found
+```
+**解决**：确保表名是 "DeepSeek_Usage"（注意大小写）
+
+### 问题3：权限不足
+```
+⚠️ 端点失败: 403 - Permission denied
+```
+**解决**：检查API令牌权限，确保有写入权限
+
+## 快捷方式
+
+创建一个桌面快捷方式：
+1. 右键桌面 → 新建 → 快捷方式
+2. 位置输入：`cmd /k "cd /d D:\VS_Code\Code_Set && log_deepseek_usage.bat"`
+3. 命名为："记录DeepSeek使用量"
+
+## 提示
+
+1. **Token估算**：DeepSeek通常会在响应中显示Token使用量，可以据此记录
+2. **定期检查**：使用 `--recent 10` 查看最近使用情况
+3. **成本监控**：脚本会自动计算成本，便于预算管理
+4. **任务分类**：使用清晰的任务描述，便于后期分析
+
+## 进阶功能：MCP集成
+
+### 安装NocoDB MCP Server
+安装MCP Server后，您可以直接在Cline对话中查询数据：
+
+```bash
+# 详细安装指南
+notepad D:\VS_Code\Code_Set\nocodb_mcp_server_guide.md
+```
+
+### MCP查询示例
+安装后，您可以直接问Cline：
+
+1. **花费查询**：
+   - "DeepSeek，看看NocoDB，我这周一共花了多少钱？"
+   - "本月DeepSeek花费多少？"
+
+2. **使用统计**：
+   - "帮我统计一下，用DeepSeek R1消耗的Token是不是比V3多？"
+   - "显示最近10条使用记录"
+
+3. **详细分析**：
+   - "按日期统计使用量"
+   - "比较v3和r1模型的使用情况"
+
+### 直接查询（无需MCP）
+```cmd
+# 查看最近记录和汇总统计
+D:\AAA_Learning_Resource\ScreenTracker\venv\Scripts\python.exe deepseek_usage_logger.py --recent 10 --token 您的令牌
+
+# 测试连接
+D:\AAA_Learning_Resource\ScreenTracker\venv\Scripts\python.exe deepseek_usage_logger.py --test --token 您的令牌
+```
+
+## 获取帮助
+
+```cmd
+# 查看所有选项
+D:\AAA_Learning_Resource\ScreenTracker\venv\Scripts\python.exe deepseek_usage_logger.py --help
+
+# 查看详细文档
+notepad D:\VS_Code\Code_Set\DeepSeek_Usage_Logger_README.md
+
+# 查看MCP安装指南
+notepad D:\VS_Code\Code_Set\nocodb_mcp_server_guide.md
+```
+
+## 定价信息（基于DeepSeek官方定价）
+
+### 官方定价参考
+参考: https://api-docs.deepseek.com/zh-cn/quick_start/pricing/
+
+### DeepSeek-V3系列
+- **DeepSeek-V3**: $0.14/百万token ≈ ¥1.008/百万token
+- **DeepSeek-V3-Lite**: $0.07/百万token ≈ ¥0.504/百万token  
+- **DeepSeek-V3-0324**: $0.14/百万token ≈ ¥1.008/百万token
+
+### DeepSeek-R1系列
+- **DeepSeek-R1**: $2.00/百万token ≈ ¥14.40/百万token
+- **DeepSeek-R1-Distill-Qwen-32B**: $0.80/百万token ≈ ¥5.76/百万token
+- **DeepSeek-R1-Distill-Llama-70B**: $1.20/百万token ≈ ¥8.64/百万token
+
+### 汇率
+- **1美元 = 7.2人民币**
+
+### 计算示例
+- 100万token (v3) = ¥1.008
+- 50万token (v3) = ¥0.504
+- 10万token (v3) = ¥0.1008
+- 100万token (r1) = ¥14.40
+- 25万token (r1) = ¥3.60
+- 100万token (v3-lite) = ¥0.504
+
+现在你可以开始记录DeepSeek Token使用量了！每次完成任务后，只需运行相应命令即可。
