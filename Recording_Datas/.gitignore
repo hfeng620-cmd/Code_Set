@@ -1,0 +1,19 @@
+
+# --- Linux home config caches (do NOT track) ---
+.config/
+.cache/
+.local/
+.ssh/
+.gnupg/
+.pki/
+
+# --- Package managers / build caches ---
+pacman-pkg/
+.cargo/
+.npm/
+.yarn/
+node_modules/
+
+# --- Git internals if accidentally nested ---
+**/.git/
+
