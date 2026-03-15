@@ -30,6 +30,10 @@ output/
 *.dll
 *.so
 *.dylib
+*.dSYM/
+C_Cpp_Code/HelloWorld
+C_Cpp_Code/Hell
+C_Cpp_Code/C++学习/变量
 
 # --- Logs / temp ---
 *.log

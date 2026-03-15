@@ -1,5 +1,21 @@
 import requests
 from bs4 import BeautifulSoup
+import ssl
+import urllib3
+from requests.adapters import HTTPAdapter
+
+# 禁用SSL警告
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+# 创建一个允许不安全SSL连接的会话
+session = requests.Session()
+session.verify = False
+
+# 设置重试次数和超时时间
+session.mount('https://', HTTPAdapter(max_retries=3))
+
+# 设置全局urllib3配置
+urllib3.util.ssl_.DEFAULT_CIPHERS = 'ALL:@SECLEVEL=0'
 
 def main():
     # 1. 目标网址
@@ -14,7 +30,7 @@ def main():
     
     try:
         # 3. 发送请求
-        response = requests.get(url, headers=headers)
+        response = session.get(url, headers=headers)
         
         # 如果状态码不是200，说明出错了
         if response.status_code != 200:
