@@ -8,3 +8,7 @@ for i in range(n):
     if result < max(matrix[i]):
         result = max(matrix[i])
 print("矩阵中的最大值为:",result)
+
+
+
+

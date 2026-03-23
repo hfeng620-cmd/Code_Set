@@ -41,3 +41,8 @@ indexa=lista.index(numa)
 indexb=lista.index(numb)
 print(f"差值最小的两个数为: [{numa}, {numb}]")
 print(f"它们在列表中的索引号为: [{indexa}, {indexb}]")
+
+
+
+
+
