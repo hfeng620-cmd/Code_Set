@@ -38,6 +38,16 @@ C_Cpp_Code/C++学习/变量
 # --- Logs / temp ---
 *.log
 *.tmp
+*.lock
+*.db
 
 # --- Node (if any) ---
 node_modules/
+
+# --- Local app data ---
+*.sqlite
+*.sqlite3
+
+# --- C/C++ practice outputs ---
+C_Cpp_Code/黑马练习/*
+!C_Cpp_Code/黑马练习/*.cpp
