@@ -44,7 +44,7 @@ C_Cpp_Code/C++学习/变量
 # --- Node (if any) ---
 node_modules/
 .omx/
-<<<<<<< HEAD
+.codex
 
 # --- Local app data ---
 *.sqlite
@@ -53,6 +53,3 @@ node_modules/
 # --- C/C++ practice outputs ---
 C_Cpp_Code/黑马练习/*
 !C_Cpp_Code/黑马练习/*.cpp
-=======
-.codex
->>>>>>> 49429aa (Ignore accidental local .codex marker file)
