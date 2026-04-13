@@ -43,6 +43,7 @@ C_Cpp_Code/C++学习/变量
 
 # --- Node (if any) ---
 node_modules/
+.omx/
 
 # --- Local app data ---
 *.sqlite
