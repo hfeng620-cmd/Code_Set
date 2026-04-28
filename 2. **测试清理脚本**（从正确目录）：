@@ -1,0 +1,2 @@
+cd /home/tian/Recording_Datas/Code_Set
+python3 Tools_Utilities/clean_temp_files.py --dry-run --verbose

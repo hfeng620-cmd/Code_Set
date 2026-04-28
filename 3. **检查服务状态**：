@@ -1,0 +1,2 @@
+systemctl --user status clean-temp-files.timer
+journalctl --user -u clean-temp-files.service -f

@@ -7,3 +7,4 @@ Type=oneshot
 User=tian
 ExecStart=/usr/bin/python3 /home/tian/Recording_Datas/Code_Set/Tools_Utilities/clean_temp_files.py --dir /home/tian/Recording_Datas/Code_Set --verbose
 WorkingDirectory=/home/tian/Recording_Datas/Code_Set
+Environment=PYTHONPATH=/home/tian/Recording_Datas/Code_Set/Tools_Utilities
