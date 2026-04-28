@@ -1,0 +1,10 @@
+[Unit]
+Description=Run clean-temp-files weekly on Sunday at 12:00
+Requires=clean-temp-files.service
+
+[Timer]
+OnCalendar=Sun 12:00:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target
