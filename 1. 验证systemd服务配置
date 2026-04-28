@@ -1,0 +1,11 @@
+# 检查服务文件是否正确
+systemctl --user cat clean-temp-files.service
+systemctl --user cat clean-temp-files.timer
+
+# 启用并启动定时器
+systemctl --user daemon-reload
+systemctl --user enable clean-temp-files.timer
+systemctl --user start clean-temp-files.timer
+
+# 查看定时器状态
+systemctl --user list-timers --all
