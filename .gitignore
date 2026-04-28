@@ -2,8 +2,6 @@
 .DS_Store
 Thumbs.db
 .idea/
-.vscode/
-*.swp
 
 # --- Clang / C-C++ tools ---
 .clangd

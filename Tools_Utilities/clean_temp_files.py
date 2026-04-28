@@ -29,7 +29,8 @@ DEFAULT_CONFIG = {
         "venv",
         ".venv", 
         "env",
-        "node_modules"
+        "node_modules",
+        ".vscode"
     ],
     "max_file_size_mb": 100,
     "exclude_patterns": [
@@ -58,7 +59,6 @@ TEMP_PATTERNS = [
     '**/aider*',
     
     # IDE和编辑器临时文件
-    '**/.vscode',
     '**/.idea',
     '**/*.swp',
     '**/*.swo',
@@ -170,7 +170,7 @@ def clean_temp_files(root_dir='.', dry_run=False, config_file='clean_config.json
                             logger.info(f"[将删除空目录] {path}")
                         else:
                             path.rmdir()
-                            logger.info(f"[删除空目录] {path}")
+                            logger.info(f"[将删除空目录] {path}")
                     deleted_count += 1
                     
             except Exception as e:
