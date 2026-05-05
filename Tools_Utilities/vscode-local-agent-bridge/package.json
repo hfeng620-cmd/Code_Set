@@ -1,0 +1,106 @@
+{
+  "name": "local-agent-bridge",
+  "displayName": "Local Agent Bridge",
+  "description": "Bridge VS Code Chat requests to local Qwen, Aider, and Cline workflows.",
+  "version": "0.0.1",
+  "publisher": "local",
+  "engines": {
+    "vscode": "^1.98.0"
+  },
+  "categories": [
+    "Chat",
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./extension.js",
+  "contributes": {
+    "chatParticipants": [
+      {
+        "id": "local-agent-bridge.agent",
+        "name": "local",
+        "fullName": "Local Agent Bridge",
+        "description": "Route a chat request to qwen, aider, or cline.",
+        "isSticky": true,
+        "commands": [
+          {
+            "name": "qwen",
+            "description": "Run one-shot with local Qwen CLI."
+          },
+          {
+            "name": "aider",
+            "description": "Run one-shot with local Aider CLI (safe ask mode by default)."
+          },
+          {
+            "name": "cline",
+            "description": "Open Cline and copy prompt to clipboard."
+          },
+          {
+            "name": "help",
+            "description": "Show bridge usage help."
+          }
+        ]
+      }
+    ],
+    "configuration": {
+      "title": "Local Agent Bridge",
+      "properties": {
+        "localAgentBridge.defaultProvider": {
+          "type": "string",
+          "default": "qwen",
+          "enum": [
+            "qwen",
+            "aider",
+            "cline"
+          ],
+          "description": "Provider used when no slash command is given."
+        },
+        "localAgentBridge.commandTimeoutMs": {
+          "type": "number",
+          "default": 120000,
+          "minimum": 1000,
+          "description": "Timeout for local CLI commands in milliseconds."
+        },
+        "localAgentBridge.qwenCommand": {
+          "type": "string",
+          "default": "/home/tian/.npm-global/bin/qwen",
+          "description": "Path to qwen executable."
+        },
+        "localAgentBridge.qwenArgs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "--output-format",
+            "text"
+          ],
+          "description": "Extra args before the prompt for qwen."
+        },
+        "localAgentBridge.aiderCommand": {
+          "type": "string",
+          "default": "/home/tian/.local/bin/aider",
+          "description": "Path to aider executable."
+        },
+        "localAgentBridge.aiderArgs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "--config",
+            "/home/tian/.aider.conf.yml",
+            "--no-pretty",
+            "--no-stream",
+            "--yes-always"
+          ],
+          "description": "Base args for aider. Prompt is appended via --message."
+        },
+        "localAgentBridge.aiderPromptPrefix": {
+          "type": "string",
+          "default": "/ask ",
+          "description": "Prefix added before the aider message prompt."
+        }
+      }
+    }
+  }
+}
