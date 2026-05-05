@@ -1,0 +1,55 @@
+# --- OS / Editor ---
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# --- Clang / C-C++ tools ---
+.clangd
+compile_commands.json
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# --- Build artifacts ---
+build/
+dist/
+out/
+output/
+*.o
+*.obj
+*.exe
+*.dll
+*.so
+*.dylib
+*.dSYM/
+C_Cpp_Code/HelloWorld
+C_Cpp_Code/Hell
+C_Cpp_Code/C++学习/变量
+
+# --- Logs / temp ---
+*.log
+*.tmp
+*.lock
+*.db
+
+# --- Node (if any) ---
+node_modules/
+.omx/
+.codex
+
+# --- Local app data ---
+*.sqlite
+*.sqlite3
+
+# --- C/C++ practice outputs ---
+C_Cpp_Code/黑马练习/*
+!C_Cpp_Code/黑马练习/*.cpp
