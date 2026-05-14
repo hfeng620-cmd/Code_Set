@@ -12,7 +12,7 @@
 | `Video_player/` | 视频播放器（PyInstaller 打包） |
 | `Crawler_Scripts/` | 爬虫脚本（B站、豆瓣等） |
 | `Data_Analysis/` | 数据分析与机器学习评估脚本 |
-| `Tools_Utilities/` | 数据库检查、清理、恢复等实用工具 |
+| `Tools_Utilities/` | 数据库检查、PyInstaller 提取、系统服务等工具 |
 | `AudioControlHotkeys/` | Windows 音频控制热键（AutoHotkey） |
 
 ### 配置指南
@@ -45,9 +45,9 @@
 |------|------|
 | `C_Cpp_Code/` | C/C++ 练习代码（黑马程序员教程） |
 | `Python课程练习/` | Python 课程练习 |
-| `Learning_Exercises/` | 算法动画、粒子系统等练习 |
+| `Learning_Exercises/` | 算法动画、粒子系统、ML 评估脚本等练习 |
 
-### 故障排障记录
+### 排障记录
 
 | 目录 | 说明 |
 |------|------|
@@ -59,8 +59,8 @@
 | 目录/文件 | 说明 |
 |-----------|------|
 | `VMware_Setting/` | VMware 服务管理自动化 |
+| `vscode-local-agent-bridge/` | VSCode 本地代理桥接扩展 |
 | `Documentation/` | 技术文档与参考笔记 |
-| `Database_Config/` | 数据库配置文件 |
 
 ## 环境
 

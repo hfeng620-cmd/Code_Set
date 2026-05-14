@@ -1,5 +1,0 @@
-# 先进行干运行测试，看看会删除什么
-python3 Tools_Utilities/clean_temp_files.py --dry-run --verbose
-
-# 确认无误后实际运行
-python3 Tools_Utilities/clean_temp_files.py --verbose

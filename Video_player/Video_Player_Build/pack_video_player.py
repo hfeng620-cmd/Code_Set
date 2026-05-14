@@ -18,7 +18,7 @@ def main():
     
     # 获取当前目录
     current_dir = Path(__file__).parent
-    source_dir = current_dir.parent / "Video_Player_Source"
+    source_dir = current_dir.parent
     resources_dir = current_dir.parent / "Video_Player_Resources"
     dist_dir = current_dir / "dist"
     build_dir = current_dir / "build"

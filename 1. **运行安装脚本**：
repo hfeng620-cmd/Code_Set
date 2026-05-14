@@ -1,3 +1,0 @@
-cd /home/tian/Recording_Datas/Code_Set/Tools_Utilities
-chmod +x setup_clean_service.sh
-./setup_clean_service.sh

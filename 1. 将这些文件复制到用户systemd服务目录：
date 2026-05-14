@@ -1,3 +1,0 @@
-mkdir -p ~/.config/systemd/user
-cp Tools_Utilities/clean-temp-files.service ~/.config/systemd/user/
-cp Tools_Utilities/clean-temp-files.timer ~/.config/systemd/user/

@@ -1,5 +1,0 @@
-# 查看清理日志
-cat Tools_Utilities/clean_temp_files.log
-
-# 查看systemd日志
-journalctl --user -u clean-temp-files.service

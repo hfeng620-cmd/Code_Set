@@ -1,3 +1,0 @@
-systemctl --user daemon-reload
-systemctl --user enable clean-temp-files.timer
-systemctl --user start clean-temp-files.timer
