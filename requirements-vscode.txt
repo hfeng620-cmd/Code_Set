@@ -1,0 +1,22 @@
+# Core packages used across the Python scripts in this repo
+beautifulsoup4
+chardet
+DrissionPage
+duckduckgo-search
+matplotlib
+numpy
+pandas
+Pillow
+psutil
+pygame
+PyQt5
+pystray
+requests
+scikit-learn
+selenium
+urllib3
+
+# Windows-only helpers
+comtypes; platform_system == "Windows"
+pycaw; platform_system == "Windows"
+pywin32; platform_system == "Windows"

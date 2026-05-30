@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Talk with yourself</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <h1>Talk with yourself</h1>
+      <p>上传授权聊天记录，生成一个可聊天、可导出的人格包。</p>
+    </div>
+    <div class="status" id="status">连接中</div>
+  </header>
+
+  <main class="shell">
+    <section class="panel upload-panel">
+      <div class="panel-head">
+        <div>
+          <h2>创建数字分身</h2>
+          <p>当前 MVP 支持 TXT/CSV 等文本聊天记录。建议先用示例文件验证流程。</p>
+        </div>
+      </div>
+
+      <form id="uploadForm" class="upload-form">
+        <label>
+          <span>人格名称</span>
+          <input name="displayName" type="text" placeholder="例如：我的分身" required>
+        </label>
+        <label>
+          <span>联系邮箱或备注 ID</span>
+          <input name="ownerEmail" type="text" placeholder="用于之后找回/删除，可留空">
+        </label>
+        <label>
+          <span>聊天记录文件</span>
+          <input name="chatFile" type="file" accept=".txt,.csv,.json,.md">
+        </label>
+        <label>
+          <span>或直接粘贴聊天记录</span>
+          <textarea name="rawText" rows="6" placeholder="例如：&#10;2026-05-20 09:12 我: 今天有点累&#10;2026-05-20 09:13 朋友: 怎么了？"></textarea>
+        </label>
+        <label>
+          <span>补充说明</span>
+          <textarea name="notes" rows="4" placeholder="例如：希望更像日常聊天，不要太正式。"></textarea>
+        </label>
+
+        <div class="checks">
+          <label class="check">
+            <input type="checkbox" name="uploadedByOwner" checked>
+            <span>我确认这些记录由本人上传或已取得明确授权。</span>
+          </label>
+          <label class="check">
+            <input type="checkbox" name="allowHumanReview">
+            <span>允许运营人员在必要时查看原文排查质量问题。</span>
+          </label>
+          <label class="check">
+            <input type="checkbox" name="allowTraining">
+            <span>允许将脱敏后的样例用于后续人格蒸馏/微调训练。</span>
+          </label>
+        </div>
+
+        <button class="primary" type="submit">生成可聊天人格</button>
+      </form>
+
+      <div class="notice">
+        <strong>数据边界</strong>
+        <p>原始记录只保存在本机 <code>data/uploads</code>。未勾选训练授权的数据，不应进入训练集。</p>
+      </div>
+
+      <div class="device-import">
+        <div class="panel-head inline compact">
+          <div>
+            <h2>识别本机微信记录</h2>
+            <p>扫描常见微信目录，能直接导入可读文本；数据库文件只提示位置。</p>
+          </div>
+          <button id="initWechatBtn" class="secondary" type="button">初始化微信读取</button>
+          <button id="scanWechatBtn" class="secondary" type="button">扫描本机</button>
+        </div>
+        <div id="scanResult" class="scan-result empty">还没有扫描。</div>
+        <div id="wechatSessions" class="scan-result hidden"></div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head inline">
+        <div>
+          <h2>人格列表</h2>
+          <p>选择一个人格进行测试聊天或导出。</p>
+        </div>
+        <button id="refreshBtn" class="secondary" type="button">刷新</button>
+      </div>
+      <div id="personaList" class="persona-list empty">暂无人格，先上传一份聊天记录。</div>
+    </section>
+
+    <section class="panel chat-panel">
+      <div class="panel-head inline">
+        <div>
+          <h2 id="chatTitle">聊天测试</h2>
+          <p id="chatSubtitle">当前为本地规则 fallback，后续可接你的 cc 云端模型配置。</p>
+        </div>
+        <a id="exportLink" class="secondary hidden" href="#">导出 ZIP</a>
+      </div>
+
+      <div id="personaMeta" class="meta empty">请选择一个人格。</div>
+      <div id="chatLog" class="chat-log"></div>
+      <form id="chatForm" class="chat-form">
+        <input id="chatInput" type="text" placeholder="对这个数字分身说点什么" disabled>
+        <button class="primary" type="submit" disabled>发送</button>
+      </form>
+    </section>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>

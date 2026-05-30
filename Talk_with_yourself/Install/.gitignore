@@ -1,0 +1,9 @@
+data/
+*.log
+*.tmp
+.env
+.playwright-cli/
+output/
+.venv/
+node_modules/
+package-lock.json

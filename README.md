@@ -23,21 +23,21 @@
 | `Windows_Terminal_Settings/` | Windows Terminal 美化与配置 |
 | `niri窗口关闭与打开配置/` | Niri 窗口管理器配置 |
 | `代理自动切换配置指南.md` | 代理自动切换配置说明 |
-| `VSCode-shortcuts.md` | VSCode 快捷键速查 |
-| `VSCode-Vim-速查表.md` | VSCode Vim 模式速查 |
-| `VSCode-Vim-个人适配指南.md` | VSCode Vim 个人适配指南 |
-| `GIT_GUIDE_FOR_YOUR_REPOS.md` | Git 使用指南 |
+| `Documentation/Editors/VSCode-shortcuts.md` | VSCode 快捷键速查 |
+| `Documentation/Editors/VSCode-Vim-速查表.md` | VSCode Vim 模式速查 |
+| `Documentation/Editors/VSCode-Vim-个人适配指南.md` | VSCode Vim 个人适配指南 |
+| `Documentation/Git/GIT_GUIDE_FOR_YOUR_REPOS.md` | Git 使用指南 |
 | `开机自定义/` | Plymouth 开机画面自定义 |
 
 ### AI 工具使用指南
 
 | 文件 | 说明 |
 |------|------|
-| `Claude_Code_多Agent与Subagent使用指南.md` | Claude Code 多 Agent 与 Subagent |
-| `Claude_Code_多Provider与模型切换指南.md` | Claude Code 多 Provider 与模型切换 |
-| `DeepTutor-使用与高效使用指南.md` | DeepTutor 使用指南 |
-| `Hermes_使用指南.md` | Hermes 使用指南 |
-| `Kangentic_使用与部署指南.md` | Kangentic 使用与部署指南 |
+| `Documentation/AI_Tools/Claude_Code_多Agent与Subagent使用指南.md` | Claude Code 多 Agent 与 Subagent |
+| `Documentation/AI_Tools/Claude_Code_多Provider与模型切换指南.md` | Claude Code 多 Provider 与模型切换 |
+| `Documentation/AI_Tools/DeepTutor-使用与高效使用指南.md` | DeepTutor 使用指南 |
+| `Documentation/AI_Tools/Hermes_使用指南.md` | Hermes 使用指南 |
+| `Documentation/AI_Tools/Kangentic_使用与部署指南.md` | Kangentic 使用与部署指南 |
 
 ### 学习与练习
 
@@ -65,6 +65,18 @@
 ## 环境
 
 - **OS**: Arch Linux + Windows 11 双系统
-- **Python**: 3.x
+- **Python**: 3.12
+- **Node.js**: LTS
+- **C/C++**: MSYS2 UCRT64 GCC
 - **Shell**: Zsh / PowerShell
 - **Editor**: VSCode with Vim
+
+## 本地 VSCode
+
+- 工作区配置放在 `.vscode/`
+- Python 解释器默认指向仓库内的 `.venv`
+- 常用运行任务覆盖 Python、Python GUI 和 C/C++ 小练习
+
+## 依赖
+
+- Python 依赖清单见 `requirements-vscode.txt`
