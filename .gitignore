@@ -50,8 +50,6 @@ node_modules/
 *.sqlite3
 
 # --- C/C++ practice outputs ---
-C_Cpp_Code/黑马练习/*
-!C_Cpp_Code/黑马练习/*.cpp
 .kangentic/
 .claude/settings.local.json
 kangentic.local.json
